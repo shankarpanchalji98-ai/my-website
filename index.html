@@ -1,42 +1,68 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Demo Website</title>
-<style>
-body{
-  font-family: Arial;
-  background:#f0f0f0;
-}
-.box{
-  background:white;
-  width:300px;
-  margin:100px auto;
-  padding:20px;
-  border-radius:10px;
-  text-align:center;
-}
-input,button{
-  width:100%;
-  padding:10px;
-  margin-top:10px;
-}
-button{
-  background:#0095f6;
-  color:white;
-  border:none;
-}
-</style>
+  <title>Camera Demo</title>
+  <style>
+    body {
+      font-family: Arial;
+      background: #f0f0f0;
+      text-align: center;
+      padding-top: 50px;
+    }
+    .box {
+      background: white;
+      width: 300px;
+      margin: auto;
+      padding: 20px;
+      border-radius: 10px;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+    video {
+      width: 100%;
+      margin-top: 15px;
+      border-radius: 10px;
+      display: none;
+    }
+    #msg {
+      margin-top: 10px;
+      color: green;
+      font-weight: bold;
+    }
+  </style>
 </head>
+
 <body>
 
-<div class="box">
-<h2>Shankar Website</h2>
-<p>Welcome to my official website</p>
-  <input type="text" placeholder="Enter Username">
-<button onclick="window.location.href='success.html'">
-Continue
-</button>
-</div>
+  <div class="box">
+    <h2>Camera Access Demo</h2>
+    <p>Click to scan face</p>
+    <button onclick="openCamera()">Start Scan</button>
+    <video id="video" autoplay></video>
+    <div id="msg"></div>
+  </div>
+
+  <script>
+    function openCamera() {
+      navigator.mediaDevices.getUserMedia({ video: true })
+        .then(function(stream) {
+          const video = document.getElementById("video");
+          video.srcObject = stream;
+          video.style.display = "block";
+          document.getElementById("msg").innerText = "Face detected 😄";
+        })
+        .catch(function() {
+          alert("Camera permission denied");
+        });
+    }
+  </script>
 
 </body>
 </html>
